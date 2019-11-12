@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties("limits-servic")
+@ConfigurationProperties("limits-service")
 public class Configuration
 {
 	private int minimum;
@@ -16,10 +16,10 @@ public class Configuration
 	public void setMinimumL(int minimum) {
 		this.minimum = minimum;
 	}
-	public int getMaximum() {
+	public int getMaximumL() {
 		return maximum;
 	}
-	public void setMaximum(int maximum) {
+	public void setMaximumL(int maximum) {
 		this.maximum = maximum;
 	}
 	
