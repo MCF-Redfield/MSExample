@@ -36,34 +36,46 @@ public class CurrencyConversionController
 		return new CurrencyConversionBean(ccbResponse.getId(),
 										  from,
 										  to,
-										  ccbResponse.getConversionMultiple(),
+										  ccbResponse.getConversionMultiple2(),
 										  quantity,
-										  quantity.multiply(ccbResponse.getConversionMultiple()),
+										  quantity.multiply(ccbResponse.getConversionMultiple2()),
 										  ccbResponse.getPort());
 	}
 	
 	@GetMapping("/currency-converter-feign/from/{from}/to/{to}/quantity/{quantity}")
 	public CurrencyConversionBean convertCurrencyFeign(@PathVariable(value="from") String from,
-												  @PathVariable(value="to") String to,
-												  @PathVariable(value="quantity") BigDecimal quantity)
+													  @PathVariable(value="to") String to,
+													  @PathVariable(value="quantity") BigDecimal quantity)
 	{
 		System.out.println(">>>>>>" + from + "-" + to +"-" + quantity + "<<<<<<");
-		/*Map<String, String> uriVariables = new HashMap<>();
-		uriVariables.put("from", from);
-		uriVariables.put("to", to);
-		acesso a URL e recebo um JSON, de um serviço externo
-		ResponseEntity<CurrencyConversionBean> responseEntityCCB = new RestTemplate().getForEntity("http://localhost:8000/currency-exchange/from/{from}/to/{to}",
-																									CurrencyConversionBean.class,
-																									uriVariables);*/
-		CurrencyConversionBean ccbResponse = currencyExchangeServiceProxy.retrieveExchangeValue(from, to);
+		CurrencyConversionBean ccbResponse = new CurrencyConversionBean();
+		System.out.println(">>>>>>>>>>>>>>1>" + ccbResponse.getConversionMultiple2());
+		ccbResponse = currencyExchangeServiceProxy.retrieveExchangeValue(from, to);
+		System.out.println(">>>>>>>>>>>>>>2>" + ccbResponse.getConversionMultiple2());
 		if(ccbResponse == null)
 			return new CurrencyConversionBean(1L, from, to, BigDecimal.ONE, quantity, quantity, 0);
 		return new CurrencyConversionBean(ccbResponse.getId(),
 										  from,
 										  to,
-										  ccbResponse.getConversionMultiple(),
+										  ccbResponse.getConversionMultiple2(),
 										  quantity,
-										  quantity.multiply(ccbResponse.getConversionMultiple()),
+										  quantity.multiply(ccbResponse.getConversionMultiple2()),
+										  ccbResponse.getPort());
+	}
+	
+	@GetMapping("/currency-converter-vezes-1000/quantity/{quantity}")
+	public CurrencyConversionBean valorVezes1000(@PathVariable(value="quantity") BigDecimal quantity)
+	{
+		System.out.println(">>>>>>" + quantity + "<<<<<<");
+		CurrencyConversionBean ccbResponse = currencyExchangeServiceProxy.vezes1000();
+		if(ccbResponse == null)
+			return new CurrencyConversionBean(1L, "1000from", "1000to", BigDecimal.ONE, quantity, quantity, 0);
+		return new CurrencyConversionBean(ccbResponse.getId(),
+										  "1000from",
+										  "1000to",
+										  ccbResponse.getConversionMultiple2(),
+										  quantity,
+										  quantity.multiply(ccbResponse.getConversionMultiple2()),
 										  ccbResponse.getPort());
 	}
 

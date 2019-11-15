@@ -27,7 +27,18 @@ public class CurrencyExchangeController
 		ExchangeValue exchangeValue = exchangeValueR.findByFromAndTo(from,to);//uso o nome que esta na classe(yes-from, not-currency_from)
 		if(exchangeValue==null)
 			exchangeValue = new ExchangeValue(1234L, from, to, BigDecimal.valueOf(150));
-		System.out.println(">>>>>>>>>>>>>>"+exchangeValue.getConversionMultiple());
+		System.out.println(">>>>>>>>>>>>>>"+exchangeValue.getConversionMultiple2());
+		exchangeValue.setPort(Integer.parseInt(environment.getProperty("local.server.port")));
+		return exchangeValue; 
+		
+	}
+	
+	@GetMapping("/currency-converter-vezes-1000")
+	public ExchangeValue retrieveExchangeValue1000()
+	{	
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>> Teeeste1000");
+		ExchangeValue exchangeValue = new ExchangeValue(1234L, "1000from", "1000to", BigDecimal.valueOf(1000));
+		System.out.println(">>>>>>>>>>>>>>"+exchangeValue.getConversionMultiple2());
 		exchangeValue.setPort(Integer.parseInt(environment.getProperty("local.server.port")));
 		return exchangeValue; 
 		

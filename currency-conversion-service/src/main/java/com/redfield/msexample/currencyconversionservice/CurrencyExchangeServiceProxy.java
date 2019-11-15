@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RibbonClient(name="currency-exchange-service")
 public interface CurrencyExchangeServiceProxy
 {	
-	@GetMapping("/currency-exchange/from/{from}/to/{to}")
+	@GetMapping("/currency-exchange/from/{from}/to/{to}")//Os PathVariables são passados para a URL
 	public CurrencyConversionBean retrieveExchangeValue(@PathVariable(value="from") String from,
 														@PathVariable(value="to") String to);
-
+	
+	@GetMapping("/currency-converter-vezes-1000")
+	public CurrencyConversionBean vezes1000();
 }
