@@ -5,14 +5,15 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name="currency-exchange-service")
+//@FeignClient(name="currency-exchange-service")
+@FeignClient(name="netflix-zuul-api-gateway-server")
 @RibbonClient(name="currency-exchange-service")
 public interface CurrencyExchangeServiceProxy
 {	
-	@GetMapping("/currency-exchange/from/{from}/to/{to}")//Os PathVariables são passados para a URL
+	@GetMapping("/currency-exchange-service/currency-exchange/from/{from}/to/{to}")//Os PathVariables são passados para a URL
 	public CurrencyConversionBean retrieveExchangeValue(@PathVariable(value="from") String from,
 														@PathVariable(value="to") String to);
 	
-	@GetMapping("/currency-converter-vezes-1000")
+	@GetMapping("/currency-exchange-service/currency-converter-vezes-1000")
 	public CurrencyConversionBean vezes1000();
 }
