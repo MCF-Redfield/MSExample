@@ -2,6 +2,8 @@ package com.redfield.msexample.currencyexchangeservice;
 
 import java.math.BigDecimal;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,8 @@ import com.redfield.msexample.currencyexchangeservice.repository.ExchangeValueRe
 @RestController
 public class CurrencyExchangeController
 {
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private Environment environment;
 	
@@ -29,6 +33,7 @@ public class CurrencyExchangeController
 			exchangeValue = new ExchangeValue(1234L, from, to, BigDecimal.valueOf(150));
 		System.out.println(">>>>>>>>>>>>>>"+exchangeValue.getConversionMultiple2());
 		exchangeValue.setPort(Integer.parseInt(environment.getProperty("local.server.port")));
+		logger.info("{}", exchangeValue);
 		return exchangeValue; 
 		
 	}
@@ -40,6 +45,7 @@ public class CurrencyExchangeController
 		ExchangeValue exchangeValue = new ExchangeValue(1234L, "1000from", "1000to", BigDecimal.valueOf(1000));
 		System.out.println(">>>>>>>>>>>>>>"+exchangeValue.getConversionMultiple2());
 		exchangeValue.setPort(Integer.parseInt(environment.getProperty("local.server.port")));
+		logger.info("{}", exchangeValue);
 		return exchangeValue; 
 		
 	}
