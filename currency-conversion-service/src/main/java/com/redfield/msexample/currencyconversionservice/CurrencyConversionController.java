@@ -55,9 +55,9 @@ public class CurrencyConversionController
 	{
 		System.out.println(">>>>>>" + from + "-" + to +"-" + quantity + "<<<<<<");
 		CurrencyConversionBean ccbResponse = new CurrencyConversionBean();
-		System.out.println(">>>>>>>>>>>>>>1>" + ccbResponse.getConversionMultiple2());
+		System.out.println(">>>>>>>>>>>>>>1>multiple:" + ccbResponse.getConversionMultiple2());
 		ccbResponse = currencyExchangeServiceProxy.retrieveExchangeValue(from, to);
-		System.out.println(">>>>>>>>>>>>>>2>" + ccbResponse.getConversionMultiple2());
+		System.out.println(">>>>>>>>>>>>>>2>multiple:" + ccbResponse.getConversionMultiple2());
 		if(ccbResponse == null)
 			return new CurrencyConversionBean(1L, from, to, BigDecimal.ONE, quantity, quantity, 0);
 		return new CurrencyConversionBean(ccbResponse.getId(),
@@ -72,7 +72,7 @@ public class CurrencyConversionController
 	@GetMapping("/currency-converter-vezes-1000/quantity/{quantity}")
 	public CurrencyConversionBean valorVezes1000(@PathVariable(value="quantity") BigDecimal quantity)
 	{
-		System.out.println(">>>>>>" + quantity + "<<<<<<");
+		System.out.println(">>>>>>>>>>>>>>>>quantity:" + quantity);
 		CurrencyConversionBean ccbResponse = currencyExchangeServiceProxy.vezes1000();
 		if(ccbResponse == null)
 			return new CurrencyConversionBean(1L, "1000from", "1000to", BigDecimal.ONE, quantity, quantity, 0);
